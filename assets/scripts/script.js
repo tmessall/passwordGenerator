@@ -20,6 +20,8 @@ var possibleChars = []
 // Generate the password
 function generatePassword() {
     possibleChars = [];
+    var password = "";
+    var length = getLength();
     checkLowerCase();
     checkUpperCase();
     checkNumbers();
@@ -27,6 +29,17 @@ function generatePassword() {
     for (var i = 0; i < possibleChars.length; i++) {
         console.log(possibleChars[i]);
     }
+    for (var i = 0; i < length; i++) {
+        var selector = Math.floor(Math.random() * possibleChars.length);
+        password += possibleChars[selector];
+    }
+    console.log(password);
+    
+}
+
+function getLength() {
+    var length = prompt("How long do you want your password to be?\n(Between 8 and 128 characters");
+    return parseInt(length);
 }
 
 function checkLowerCase() {
