@@ -7,6 +7,7 @@ function writePassword() {
     var passwordText = document.querySelector("#password");
 
     passwordText.value = password;
+    document.getElementById("password").innerHTML = password;
 }
 
 // All possible characters in the password
@@ -38,7 +39,7 @@ function generatePassword() {
         password += possibleChars[selector];
     }
     console.log(password);
-    
+    return password;
 }
 
 function getLength() {
