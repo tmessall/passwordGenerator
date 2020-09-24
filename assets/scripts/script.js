@@ -21,6 +21,7 @@ var possibleChars = []
 function generatePassword() {
     possibleChars = [];
     checkLowerCase();
+    checkUpperCase();
     for (var i = 0; i < possibleChars.length; i++) {
         console.log(possibleChars[i]);
     }
@@ -36,6 +37,18 @@ function checkLowerCase() {
         alert("Great, adding lower case letters to your password!");
     } else {
         alert("Alright, there won't be any lower case letters in your password.")
+    }
+}
+
+function checkUpperCase() {
+    var wants = confirm("Do you want upper case letters in your password?");
+    if (wants) {
+        for (var i = 0; i < letters.length; i++) {
+            possibleChars.push(letters[i].toUpperCase());
+        }
+        alert("Great, adding upper case letters to your password!");
+    } else {
+        alert("Alright, there won't be any upper case letters in your password.")
     }
 }
 
