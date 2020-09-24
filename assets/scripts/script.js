@@ -96,9 +96,10 @@ function checkUpperCase() {
         alert("Great, adding upper case letters to your password!");
         // Adds a random upper case letter to the start of the password to ensure there's at least one
         password += letters[Math.floor(Math.random() * letters.length)].toUpperCase();
-    } else {
-        alert("Alright, there won't be any upper case letters in your password.")
+        return true;
     }
+    alert("Alright, there won't be any upper case letters in your password.");
+    return false;
 }
 
 function checkNumbers() {
@@ -111,9 +112,10 @@ function checkNumbers() {
         alert("Great, adding numbers to your password!");
         // Adds a random number to the start of the password to ensure there's at least one
         password += numbers[Math.floor(Math.random() * numbers.length)];
-    } else {
-        alert("Alright, there won't be any numbers in your password.")
-    }
+        return true;
+    } 
+    alert("Alright, there won't be any numbers in your password.");
+    return false;
 }
 
 function checkSpecial() {
@@ -126,9 +128,10 @@ function checkSpecial() {
         alert("Great, adding special characters to your password!");
         // Adds a random special character to the start of the password to ensure there's at least one
         password += specialChars[Math.floor(Math.random() * specialChars.length)];
-    } else {
-        alert("Alright, there won't be any special characters in your password.")
+        return true;
     }
+    alert("Alright, there won't be any special characters in your password.");
+    return false;
 }
 
 // Add event listener to generate button
