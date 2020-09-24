@@ -27,10 +27,21 @@ function generatePassword() {
     possibleChars = [];
     password = "";
     var length = getLength();
-    checkLowerCase();
-    checkUpperCase();
-    checkNumbers();
-    checkSpecial();
+    // This var and the while loop create a check to make sure the user selects at least one character type
+    var noChars = true;
+    while (noChars) {
+        var checkL = checkLowerCase();
+        var checkU = checkUpperCase();
+        var checkN = checkNumbers();
+        var checkS = checkSpecial();
+        if (checkL || checkU || checkN || checkS) {
+            noChars = false;
+        } else {
+            alert("Oops! It likes like you didn't want any characters. Try again, and make sure to select at least one!")
+        }
+    }
+   
+
     for (var i = 0; i < possibleChars.length; i++) {
         console.log(possibleChars[i]);
     }
@@ -43,7 +54,16 @@ function generatePassword() {
 }
 
 function getLength() {
-    var length = prompt("How long do you want your password to be?\n(Between 8 and 128 characters");
+    // This var and the while loop create a check to ensure that the length input is valid
+    var validLength = false;
+    while (!validLength) {
+        var length = prompt("How long do you want your password to be?\n(Between 8 and 128 characters");
+        if (length >= 8 && length <= 128) {
+            return parseInt(length)
+        }
+        alert("Make sure to type a number between 8 and 128 to get a valid length!")
+    }
+    
     return parseInt(length);
 }
 
@@ -57,9 +77,10 @@ function checkLowerCase() {
         alert("Great, adding lower case letters to your password!");
         // Adds a random lowercase letter to the start of the password to ensure there's at least one
         password += letters[Math.floor(Math.random() * letters.length)];
-    } else {
-        alert("Alright, there won't be any lower case letters in your password.")
+        return true;
     }
+    alert("Alright, there won't be any lower case letters in your password.");
+    return false;
 }
 
 function checkUpperCase() {
