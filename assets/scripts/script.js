@@ -23,10 +23,10 @@ function generatePassword() {
     checkLowerCase();
     checkUpperCase();
     checkNumbers();
+    checkSpecial();
     for (var i = 0; i < possibleChars.length; i++) {
         console.log(possibleChars[i]);
     }
-    alert("Test test.");
 }
 
 function checkLowerCase() {
@@ -62,6 +62,18 @@ function checkNumbers() {
         alert("Great, adding numbers to your password!");
     } else {
         alert("Alright, there won't be any numbers in your password.")
+    }
+}
+
+function checkSpecial() {
+    var wants = confirm("Do you want special characters in your password?");
+    if (wants) {
+        for (var i = 0; i < specialChars.length; i++) {
+            possibleChars.push(specialChars[i]);
+        }
+        alert("Great, adding special characters to your password!");
+    } else {
+        alert("Alright, there won't be any special characters in your password.")
     }
 }
 
