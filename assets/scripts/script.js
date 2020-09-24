@@ -14,13 +14,17 @@ var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
 var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 var specialChars = ["!", "@", "#", "$", "5", "^", "&", "*"];
 
-// To compile the characters we want in the password
+
+// To compile the characters we want in the password (reset each use)
 var possibleChars = []
+
+// The password itself (reset each use)
+var password = "";
 
 // Generate the password
 function generatePassword() {
     possibleChars = [];
-    var password = "";
+    password = "";
     var length = getLength();
     checkLowerCase();
     checkUpperCase();
@@ -29,7 +33,7 @@ function generatePassword() {
     for (var i = 0; i < possibleChars.length; i++) {
         console.log(possibleChars[i]);
     }
-    for (var i = 0; i < length; i++) {
+    for (var i = password.length; i < length; i++) {
         var selector = Math.floor(Math.random() * possibleChars.length);
         password += possibleChars[selector];
     }
@@ -46,9 +50,12 @@ function checkLowerCase() {
     var wants = confirm("Do you want lower case letters in your password?");
     if (wants) {
         for (var i = 0; i < letters.length; i++) {
+            // Adds lowercase letters to the array of chars which can be used to create the password
             possibleChars.push(letters[i]);
         }
         alert("Great, adding lower case letters to your password!");
+        // Adds a random lowercase letter to the start of the password to ensure there's at least one
+        password += letters[Math.floor(Math.random() * letters.length)];
     } else {
         alert("Alright, there won't be any lower case letters in your password.")
     }
@@ -61,6 +68,8 @@ function checkUpperCase() {
             possibleChars.push(letters[i].toUpperCase());
         }
         alert("Great, adding upper case letters to your password!");
+        // Adds a random upper case letter to the start of the password to ensure there's at least one
+        password += letters[Math.floor(Math.random() * letters.length)].toUpperCase();
     } else {
         alert("Alright, there won't be any upper case letters in your password.")
     }
@@ -73,6 +82,8 @@ function checkNumbers() {
             possibleChars.push(numbers[i]);
         }
         alert("Great, adding numbers to your password!");
+        // Adds a random number to the start of the password to ensure there's at least one
+        password += numbers[Math.floor(Math.random() * numbers.length)];
     } else {
         alert("Alright, there won't be any numbers in your password.")
     }
@@ -85,6 +96,8 @@ function checkSpecial() {
             possibleChars.push(specialChars[i]);
         }
         alert("Great, adding special characters to your password!");
+        // Adds a random special character to the start of the password to ensure there's at least one
+        password += specialChars[Math.floor(Math.random() * specialChars.length)];
     } else {
         alert("Alright, there won't be any special characters in your password.")
     }
