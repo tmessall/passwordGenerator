@@ -15,7 +15,6 @@ var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
 var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 var specialChars = ["!", "@", "#", "$", "5", "^", "&", "*"];
 
-
 // To compile the characters we want in the password (reset each use)
 var possibleChars = []
 
@@ -24,9 +23,11 @@ var password = "";
 
 // Generate the password
 function generatePassword() {
+    // Resets characters, password, and length so multiple passwords can be generated without reloading the page
     possibleChars = [];
     password = "";
     var length = getLength();
+
     // This var and the while loop create a check to make sure the user selects at least one character type
     var noChars = true;
     while (noChars) {
@@ -37,41 +38,43 @@ function generatePassword() {
         if (checkL || checkU || checkN || checkS) {
             noChars = false;
         } else {
-            alert("Oops! It likes like you didn't want any characters. Try again, and make sure to select at least one!")
+            alert("Oops! It looks like you didn't select any character types. Try again, and make sure to select at least one!")
         }
     }
    
-
+    // For dev to make sure the correct characters are drawn from
     for (var i = 0; i < possibleChars.length; i++) {
         console.log(possibleChars[i]);
     }
+
+    // Generates the remainder of the password beyond the start
     for (var i = password.length; i < length; i++) {
         var selector = Math.floor(Math.random() * possibleChars.length);
         password += possibleChars[selector];
     }
-    console.log(password);
+
+    // For dev to make sure it creates a password of the correct length
+    console.log(password.length);
+
     return password;
 }
 
 function getLength() {
-    // This var and the while loop create a check to ensure that the length input is valid
-    var validLength = false;
-    while (!validLength) {
-        var length = prompt("How long do you want your password to be?\n(Between 8 and 128 characters");
+    // This loop creates a check to ensure that the length input is valid
+    while (true) {
+        var length = prompt("How long do you want your password to be?\n(Between 8 and 128 characters)");
         if (length >= 8 && length <= 128) {
             return parseInt(length)
         }
         alert("Make sure to type a number between 8 and 128 to get a valid length!")
     }
-    
-    return parseInt(length);
 }
 
 function checkLowerCase() {
     var wants = confirm("Do you want lower case letters in your password?");
     if (wants) {
+        // Adds lowercase letters to the array of chars which can be used to create the password
         for (var i = 0; i < letters.length; i++) {
-            // Adds lowercase letters to the array of chars which can be used to create the password
             possibleChars.push(letters[i]);
         }
         alert("Great, adding lower case letters to your password!");
@@ -86,6 +89,7 @@ function checkLowerCase() {
 function checkUpperCase() {
     var wants = confirm("Do you want upper case letters in your password?");
     if (wants) {
+        // Adds upper case letters to the array of chars
         for (var i = 0; i < letters.length; i++) {
             possibleChars.push(letters[i].toUpperCase());
         }
@@ -100,6 +104,7 @@ function checkUpperCase() {
 function checkNumbers() {
     var wants = confirm("Do you want numbers in your password?");
     if (wants) {
+        // Adds numbers to the array of chars
         for (var i = 0; i < numbers.length; i++) {
             possibleChars.push(numbers[i]);
         }
@@ -114,6 +119,7 @@ function checkNumbers() {
 function checkSpecial() {
     var wants = confirm("Do you want special characters in your password?");
     if (wants) {
+        // Adds special characters to the array of chars
         for (var i = 0; i < specialChars.length; i++) {
             possibleChars.push(specialChars[i]);
         }
