@@ -13,7 +13,7 @@ function writePassword() {
 // All possible characters in the password
 var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-var specialChars = ["!", "@", "#", "$", "5", "^", "&", "*"];
+var special = ["!", "@", "#", "$", "5", "^", "&", "*"];
 
 // To compile the characters we want in the password (reset each use)
 var possibleChars = []
@@ -31,10 +31,10 @@ function generatePassword() {
     // This var and the while loop create a check to make sure the user selects at least one character type
     var noChars = true;
     while (noChars) {
-        checkLowerCase();
-        checkUpperCase();
-        checkNumbers();
-        checkSpecial();
+        checkCharType("lowercase", letters);
+        checkCharType("uppercase", letters);
+        checkCharType("numeric", numbers);
+        checkCharType("special", special);
         if (possibleChars.length > 0) {
             noChars = false;
         } else {
@@ -63,64 +63,26 @@ function getLength() {
     }
 }
 
-function checkLowerCase() {
-    var wants = confirm("Do you want lower case letters in your password?");
+function checkCharType(typeStr, typeArr) {
+    var wants = confirm(`Do you want ${typeStr} characters in your password?`);
     if (wants) {
-        // Adds lowercase letters to the array of chars which can be used to create the password
-        for (var i = 0; i < letters.length; i++) {
-            possibleChars.push(letters[i]);
+        // This check allows it to only need one letter array
+        if (typeStr === "uppercase") {
+            for (var i = 0; i < typeArr.length; i++) {
+                possibleChars.push(typeArr[i].toUpperCase());
+            }
+            // Adds a random char of defined type to the start of the password to ensure there's at least one
+            password += typeArr[Math.floor(Math.random() * typeArr.length)].toUpperCase();
+        } else {
+            for (var i = 0; i < typeArr.length; i++) {
+                possibleChars.push(typeArr[i]);
+            }
+            // Adds a random char of defined type to the start of the password to ensure there's at least one
+            password += typeArr[Math.floor(Math.random() * typeArr.length)];
         }
-        alert("Great, adding lower case letters to your password!");
-        // Adds a random lowercase letter to the start of the password to ensure there's at least one
-        password += letters[Math.floor(Math.random() * letters.length)];
+        alert(`Great, adding ${typeStr} characters to your password!`);
     } else {
-        alert("Alright, there won't be any lower case letters in your password.");
-    }
-    
-}
-
-function checkUpperCase() {
-    var wants = confirm("Do you want upper case letters in your password?");
-    if (wants) {
-        // Adds upper case letters to the array of chars
-        for (var i = 0; i < letters.length; i++) {
-            possibleChars.push(letters[i].toUpperCase());
-        }
-        alert("Great, adding upper case letters to your password!");
-        // Adds a random upper case letter to the start of the password to ensure there's at least one
-        password += letters[Math.floor(Math.random() * letters.length)].toUpperCase();
-    } else {
-        alert("Alright, there won't be any lower case letters in your password.");
-    }
-}
-
-function checkNumbers() {
-    var wants = confirm("Do you want numbers in your password?");
-    if (wants) {
-        // Adds numbers to the array of chars
-        for (var i = 0; i < numbers.length; i++) {
-            possibleChars.push(numbers[i]);
-        }
-        alert("Great, adding numbers to your password!");
-        // Adds a random number to the start of the password to ensure there's at least one
-        password += numbers[Math.floor(Math.random() * numbers.length)];
-    } else {
-        alert("Alright, there won't be any lower case letters in your password.");
-    }
-}
-
-function checkSpecial() {
-    var wants = confirm("Do you want special characters in your password?");
-    if (wants) {
-        // Adds special characters to the array of chars
-        for (var i = 0; i < specialChars.length; i++) {
-            possibleChars.push(specialChars[i]);
-        }
-        alert("Great, adding special characters to your password!");
-        // Adds a random special character to the start of the password to ensure there's at least one
-        password += specialChars[Math.floor(Math.random() * specialChars.length)];
-    } else {
-        alert("Alright, there won't be any lower case letters in your password.");
+        alert(`Alright, there won't be any ${typeStr} characters in your password.`);
     }
 }
 
